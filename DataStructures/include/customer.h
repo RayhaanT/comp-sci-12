@@ -8,8 +8,8 @@ class Customer {
 public:
 
     // Constructor
-    Customer(std::string name, std::string country, std::string region, std::string municipality, std::string address);
-    Customer(std::string name, std::string addressString);
+    Customer(std::string _name, std::string _country, std::string _region, std::string _municipality, std::string _address);
+    Customer(std::string _name, std::string addressString);
 
     // Get functions
     std::string getLocation();
@@ -22,6 +22,9 @@ public:
     bool deliver(int deliverableID);
 
 private:
+
+    // Functions
+    Deliverable * findDeliverable(int deliverableID);
 
     // Location data
     std::string name;
@@ -36,4 +39,5 @@ private:
 
     // Unique ID
     uint64_t id;
+    static uint64_t currentID;
 };
