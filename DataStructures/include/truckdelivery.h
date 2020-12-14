@@ -6,7 +6,7 @@
 #define TRUCK_PRICE_PER_KILO 1.20f
 #define TRUCK_BASE_PRICE 50
 
-class TruckDelivery : Deliverable
+class TruckDelivery : public Deliverable
 {
 public:
     // Constructor

@@ -19,8 +19,11 @@ public:
     float getWeight();
 
     // Virtual functions
-    virtual float getSize() {};
-    virtual float getPrice() {};
+    virtual float getSize() {return 0;};
+    virtual float getPrice() {return 0;};
+
+    // Type of order name
+    std::string orderType;
 
 protected:
 

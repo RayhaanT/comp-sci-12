@@ -5,7 +5,7 @@
 #define PARCEL_PRICE_PER_KILO 1.20
 #define PARCEL_PRICE_PER_CUBIC_CM 0.001
 
-class Parcel : Deliverable {
+class Parcel : public Deliverable {
 public:
     // Constructor
     Parcel(std::string name, float weight, float length, float width, float depth);

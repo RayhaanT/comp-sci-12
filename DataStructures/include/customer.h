@@ -9,17 +9,20 @@ public:
 
     // Constructor
     Customer(std::string _name, std::string _country, std::string _region, std::string _municipality, std::string _address);
-    Customer(std::string _name, std::string addressString);
+    // Customer(std::string _name, std::string addressString); //Scrapped
 
     // Get functions
     std::string getLocation();
-    std::vector<std::string> getLocationArray();
     std::string getName();
     uint64_t getID();
 
     // Managing packages
     bool pay(int deliverableID);
     bool deliver(int deliverableID);
+
+    // Package data
+    std::vector<Deliverable*> pendingOrders;
+    std::vector<Deliverable*> completedOrders;
 
 private:
 
@@ -32,10 +35,6 @@ private:
     std::string region;
     std::string municipality;
     std::string address;
-
-    // Package data
-    std::vector<Deliverable> pendingOrders;
-    std::vector<Deliverable> completedOrders;
 
     // Unique ID
     uint64_t id;

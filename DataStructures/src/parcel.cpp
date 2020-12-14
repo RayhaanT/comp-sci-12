@@ -1,12 +1,12 @@
 #include "parcel.h"
 
 Parcel::Parcel(std::string name, float weight, float length, float width, float depth) : Deliverable(){
-    
     this->name = name;
     this->weight = weight;
     this->length = length;
     this->width = width;
     this->depth = depth;
+    this->orderType = "Parcel";
 }
 
 float Parcel::getSize() {

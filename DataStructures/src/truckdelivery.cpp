@@ -3,6 +3,7 @@
 TruckDelivery::TruckDelivery(std::string name, float weight) : Deliverable() {
     this->name = name;
     this->weight = weight;
+    this->orderType = "Truck Delivery";
 }
 
 float TruckDelivery::getSize() {

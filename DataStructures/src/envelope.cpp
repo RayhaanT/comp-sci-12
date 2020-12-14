@@ -5,10 +5,11 @@ Envelope::Envelope(std::string name, float weight, float length, float width) : 
     this->weight = weight;
     this->length = length;
     this->width = width;
+    this->orderType = "Envelope";
 }
 
 float Envelope::getSize() {
-    return length*width*ENVELOPE_DEPTH;
+    return length*width*MAX_ENVELOPE_DEPTH;
 }
 
 float Envelope::getPrice() {

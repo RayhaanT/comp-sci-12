@@ -1,0 +1,5 @@
+[Name]
+[Weight]
+[Length]
+[Width]
+[Depth]

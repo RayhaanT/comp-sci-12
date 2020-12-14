@@ -9,10 +9,12 @@ Deliverable::Deliverable() {
 
 bool Deliverable::pay() {
     this->paid = true;
+    return paid;
 }
 
 bool Deliverable::deliver() {
     this->delivered = true;
+    return delivered;
 }
 
 uint64_t Deliverable::getID() {
