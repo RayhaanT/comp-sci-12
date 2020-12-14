@@ -2,6 +2,13 @@
 
 #include <string>
 
+/**
+ * This class is a parent class for the other types of delivery
+ * orders (envelopes, parcels, and special truck deliveries).
+ * It has properties for delivery data and status, and virtual
+ * functions that are overridden by the child classes
+ * to do unique price and size calculations.
+*/
 class Deliverable {
 public:
 

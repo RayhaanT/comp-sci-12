@@ -4,6 +4,10 @@
 #include <vector>
 #include "deliverable.h"
 
+/**
+ * This class handles customer accounts. It tracks all orders related
+ * to the customer as well as their location/address data.
+*/
 class Customer {
 public:
 

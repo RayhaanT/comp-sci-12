@@ -28,6 +28,13 @@ this program to handle string inputs and exceptions.
 vector<Customer> allCustomers;
 Customer failedSearch("ERROR", "ERROR", "ERROR", "ERROR", "ERROR");
 
+/**
+ * Strips whitespace from the beginning and ends of strings
+ * 
+ * @param str - The string to be stripped
+ * @return the stripped string
+ *
+*/
 string stripString(string str) {
     if(str.empty()) {
         return "";
@@ -47,6 +54,13 @@ string stripString(string str) {
     return str;
 }
 
+/**
+ * Take a string that represents a floating point value and reduce it to only show 2 decimal places
+ * 
+ * @param str - The string that should be compressed
+ * @return the rounded string
+ * 
+*/
 string removeExcessDecimals(string str) {
     for (int i = 0; i < str.size(); i++)
     {
@@ -60,6 +74,9 @@ string removeExcessDecimals(string str) {
     return str;
 }
 
+/**
+ * Print the main menu of the application to the console
+*/
 void printMenu() {
     cout << endl;
     cout << "1. Add a customer" << endl;
@@ -75,6 +92,13 @@ void printMenu() {
     cout << endl;
 }
 
+/**
+ * Ask the user to select a Customer to manage. The system will search the allCustomers vector to find
+ * one that matches the user's parameters of name and ID
+ * 
+ * @return a pointer to the selected Customer
+ * 
+*/
 Customer * selectCustomer() {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     cout << "Select a customer by name:" << endl;
@@ -116,6 +140,13 @@ Customer * selectCustomer() {
     }
 }
 
+/**
+ * Select an individual order from a customers list of pending orders
+ * 
+ * @param customer - The Customer from which to select the order
+ * @return a pointer to the order selected
+ * 
+*/
 Deliverable * selectOrder(Customer * customer) {
     cout << "Enter an order ID: ";
     int id;
@@ -128,6 +159,9 @@ Deliverable * selectOrder(Customer * customer) {
     throw runtime_error("There is no order by that ID");
 }
 
+/**
+ * Get input from the user and add a new Customer to the system.
+*/
 void addCustomer() {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     cout << "What's the customer's name? ";
@@ -150,6 +184,9 @@ void addCustomer() {
     return;
 }
 
+/**
+ * Delete a user-selected customer from the system
+*/
 void deleteCustomer() {
     Customer* selected = selectCustomer();
     int deleteIndex = 0;
@@ -161,6 +198,13 @@ void deleteCustomer() {
     allCustomers.erase(allCustomers.begin() + deleteIndex);
 }
 
+/**
+ * Print a cell of information for the status table.
+ * 
+ * @param data - The string that should go in the cell
+ * @param length - The total length of the cell so the proper amount of whitespace can be filled in
+ * 
+*/
 void printCell(string data, int length) {
     cout << "| ";
     cout << data;
@@ -171,6 +215,9 @@ void printCell(string data, int length) {
     cout << " ";
 }
 
+/**
+ * Print a table of all orders, completed and pending, from a customer
+*/
 void printOrderStatuses() {
     Customer* selected = selectCustomer();
 
@@ -213,6 +260,9 @@ void printOrderStatuses() {
     }
 }
 
+/**
+ * Add a new delivery order to a customer's account
+*/
 void addOrder() {
     Customer* customer = selectCustomer();
 
@@ -248,6 +298,9 @@ void addOrder() {
     }
 }
 
+/**
+ * Remove a delivery order from a customer's account
+*/
 void cancelOrder() {
     Customer *customer = selectCustomer();
     try {
@@ -263,6 +316,9 @@ void cancelOrder() {
     }
 }
 
+/**
+ * Record payment on an order
+*/
 void recordPay() {
     Customer *customer = selectCustomer();
     Deliverable *order;
@@ -277,9 +333,10 @@ void recordPay() {
     float payment;
     cout << "How much payment was recieved? ($)" << endl;
     cin >> payment;
-    if(payment > order->getPrice()) {
+    if(payment >= order->getPrice()) {
         if(customer->pay(order->getID())) {
             cout << "Payment succesfully recorded." << endl;
+            cout << "$" << removeExcessDecimals(to_string(payment-order->getPrice())) << " should be refunded to the customer." << endl;
             return;
         }
         cout << "An error occurred with locating the order in the system." << endl;
@@ -288,6 +345,9 @@ void recordPay() {
     cout << "The payment was insufficient for this order." << endl;
 }
 
+/**
+ * Record an order as delivered if it has been paid
+*/
 void deliver() {
     Customer *customer = selectCustomer();
     Deliverable *order;
@@ -312,6 +372,10 @@ void deliver() {
     }
 }
 
+/**
+ * Write the shipping label for an order to a text file.
+ * This includes the customer's address data, the type of delivery, and price
+*/
 void printLabel() {
     Customer *customer = selectCustomer();
     Deliverable *order;
@@ -337,6 +401,9 @@ void printLabel() {
     return;
 }
 
+/**
+ * Read order data from a specially formatted file and add the order to a customer's account
+*/
 void readOrder() {
     Customer *customer = selectCustomer();
 
@@ -401,12 +468,17 @@ void readOrder() {
     return;
 }
 
+/**
+ * The main function. This is the first thing that gets called when the executable is run.
+ * 
+ * @return an integer value representing the exit status
+*/
 int main() {
 
     cout <<
     "Welcome to the package management system.\n"
     "Here you can track and manage delivery orders\n"
-    "for all your different customers." << endl;
+    "for all your different customers.\n" << endl;
 
     bool exit = false;
 

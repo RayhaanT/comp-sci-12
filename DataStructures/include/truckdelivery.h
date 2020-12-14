@@ -6,6 +6,10 @@
 #define TRUCK_PRICE_PER_KILO 1.20f
 #define TRUCK_BASE_PRICE 50
 
+/**
+ * The child class to handle special truck deliveries.
+ * Prices are based on weight.
+*/
 class TruckDelivery : public Deliverable
 {
 public:
