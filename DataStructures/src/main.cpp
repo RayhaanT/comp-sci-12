@@ -91,6 +91,40 @@ void printMenu() {
     cout << endl;
 }
 
+bool compareFloats(float a, float b) {
+    return a > b;
+}
+
+template <class T>
+void bubbleSort(vector<T, std::allocator<T>> *items, bool (*compare)(T, T)) {
+    T temp;
+
+    for(int i = 1; i < items->size(); i++) {
+        for(int x = items->size() - 1; x >= i; x--) {
+            if (compare(items->operator[](x - 1), items->operator[](x))) {
+                temp = items->operator[](x - 1);
+                items->operator[](x - 1) = items->operator[](x);
+                items->operator[](x) = temp;
+            }
+        }
+    }
+}
+
+template <class T>
+void insertionSort(vector<T, allocator<T>> *items, bool (*compare)(T, T)) {
+    T temp;
+
+    for(int i = 1; i < items->size(); i++) {
+        int x = i - 1;
+        temp = items->operator[](i);
+        while (compare(items->operator[](x), temp) && x >= 0) {
+            items->operator[](x + 1) = items->operator[](x);
+            x--;
+        }
+        items->operator[](x + 1) = temp;
+    }
+}
+
 /**
  * The main function. This is the first thing that gets called when the executable is run.
  * 
@@ -104,6 +138,12 @@ int main() {
     "for all your different customers.\n" << endl;
 
     bool exit = false;
+
+    vector<float> f = {8, 2, 5, 7, 3, 6, 4, 1};
+    insertionSort(&f, &compareFloats);
+    for(float i : f) {
+        cout << i << endl;
+    }
 
     while(!exit) {
         printMenu();
