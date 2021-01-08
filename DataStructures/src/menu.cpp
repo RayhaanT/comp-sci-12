@@ -102,6 +102,18 @@ void addCustomer() {
     return;
 }
 
+void addOrderToCustomer(Customer * customer, string name, float weight, float length, float width, float depth) {
+    if (width < 30 && length < 30 && depth < 2) {
+        customer->pendingOrders.push_back(new Envelope(name, weight, length, width));
+    }
+    else if (width < 100 && length < 100 && depth < 100 && weight < 100) {
+        customer->pendingOrders.push_back(new Parcel(name, weight, length, width, depth));
+    }
+    else {
+        customer->pendingOrders.push_back(new TruckDelivery(name, weight));
+    }
+}
+
 /**
  * Delete a user-selected customer from the system
 */
@@ -270,18 +282,7 @@ void addOrder() {
     cout << "Enter the depth of the items: (cm)" << endl;
     cin >> depth;
 
-    if(width < 30 && length < 30 && depth < 2) {
-        customer->pendingOrders.push_back(new Envelope(name, weight, length, width));
-        cout << "The order was successfully added. It will be delivered in an envelope." << endl;
-    }
-    else if(width < 100 && length < 100 && depth < 100 && weight < 100) {
-        customer->pendingOrders.push_back(new Parcel(name, weight, length, width, depth));
-        cout << "The order was successfully added. It will be delivered in a parcel." << endl;
-    }
-    else {
-        customer->pendingOrders.push_back(new TruckDelivery(name, weight));
-        cout << "The order was successfully added. It will be delivered specially in a truck." << endl;
-    }
+    addOrderToCustomer(customer, name, weight, length, width, depth);
 }
 
 /**
@@ -426,19 +427,15 @@ void readOrders() {
                     depth = stof(line);
                     break;
                 case 5:
-                    if (width < 30 && length < 30 && depth < 2) {
-                        customer->pendingOrders.push_back(new Envelope(name, weight, length, width));
-                    }
-                    else if (width < 100 && length < 100 && depth < 100 && weight < 100) {
-                        customer->pendingOrders.push_back(new Parcel(name, weight, length, width, depth));
-                    }
-                    else {
-                        customer->pendingOrders.push_back(new TruckDelivery(name, weight));
-                    }
+                    addOrderToCustomer(customer, name, weight, length, width, depth);
                     break;
             }
             count++;
             count = count % 6; // Limit the count to a max of 6
+        }
+
+        if(count == 5) {
+            addOrderToCustomer(customer, name, weight, length, width, depth);
         }
 
         orderFile.close();
