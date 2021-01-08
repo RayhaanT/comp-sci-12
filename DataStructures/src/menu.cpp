@@ -87,13 +87,13 @@ void addCustomer() {
     getline(cin, name);
 
     string country, region, municipality, address;
-    cout << "Country: " << endl;
+    cout << "Country: ";
     getline(cin, country);
-    cout << "Region: " << endl;
+    cout << "Region: ";
     getline(cin, region);
-    cout << "Municipality: " << endl;
+    cout << "Municipality: ";
     getline(cin, municipality);
-    cout << "Address: " << endl;
+    cout << "Address: ";
     getline(cin, address);
 
     allCustomers.push_back(Customer(name, country, region, municipality, address));
@@ -117,20 +117,32 @@ void deleteCustomer() {
 }
 
 /**
+ * Get a string containing a cell of information for the status table.
+ * 
+ * @param data - The string that should go in the cell
+ * @param length - The total length of the cell so the proper amount of whitespace can be filled in
+ * 
+*/
+string getCell(string data, int length) {
+    string cell = "| ";
+    cell += data;
+    int numberOfSpaces = length - data.size();
+    for(int i = 0; i < numberOfSpaces; i++) {
+        cell += " ";
+    }
+    cell += " ";
+    return cell;
+}
+
+/**
  * Print a cell of information for the status table.
  * 
  * @param data - The string that should go in the cell
  * @param length - The total length of the cell so the proper amount of whitespace can be filled in
  * 
 */
-void printCell(string data, int length) {
-    cout << "| ";
-    cout << data;
-    int numberOfSpaces = length - data.size();
-    for(int i = 0; i < numberOfSpaces; i++) {
-        cout << " ";
-    }
-    cout << " ";
+void printCell(string data, int length){
+    cout << getCell(data, length);
 }
 
 /**
@@ -140,7 +152,7 @@ void printOrderStatuses() {
     Customer* selected = selectCustomer();
 
     cout << endl << "Pending orders:" << endl;
-    cout << "| Name                    |      Type      | Paid? |   Size   |  Price  |  Weight  | ID        |" << endl;
+    cout << "| Name                      |      Type      | Paid? |    Size    |  Price  |   Weight   | ID        |" << endl;
     for (Deliverable * d : selected->pendingOrders) {
         string paid = d->isPaid() ? "Yes" : "No";
         string size = removeExcessDecimals(to_string(d->getSize()));
@@ -148,18 +160,18 @@ void printOrderStatuses() {
             size = "Special";
         }
 
-        printCell(d->getName(), 23);
+        printCell(d->getName(), 25);
         printCell(d->orderType, 14);
         printCell(paid, 5);
-        printCell(size, 8);
+        printCell(size, 10);
         printCell("$" + removeExcessDecimals(to_string(d->getPrice())), 7);
-        printCell(removeExcessDecimals(to_string(d->getWeight())) + " kg", 8);
+        printCell(removeExcessDecimals(to_string(d->getWeight())) + " kg", 10);
         printCell(to_string(d->getID()), 9);
         cout << "|" << endl;
     }
 
     cout << endl << "Completed orders:" << endl;
-    cout << "| Name                    |      Type      |   Size   |  Price  |  Weight  | ID        |" << endl;
+    cout << "| Name                      |      Type      |    Size    |  Price  |   Weight   | ID        |" << endl;
     for (Deliverable * d : selected->completedOrders) {
         string paid = d->isPaid() ? "Yes" : "No";
         string delivered = d->isDelivered() ? "Yes" : "No";
@@ -168,14 +180,70 @@ void printOrderStatuses() {
             size = "Special";
         }
 
-        printCell(d->getName(), 23);
+        printCell(d->getName(), 25);
         printCell(d->orderType, 14);
-        printCell(size, 8);
+        printCell(size, 10);
         printCell("$" + removeExcessDecimals(to_string(d->getPrice())), 7);
-        printCell(removeExcessDecimals(to_string(d->getWeight())) + " kg", 8);
+        printCell(removeExcessDecimals(to_string(d->getWeight())) + " kg", 10);
         printCell(to_string(d->getID()), 9);
         cout << "|" << endl;
     }
+}
+
+/**
+ * Print a table of all orders, completed and pending, from a customer to a file
+*/
+void printOrderStatusesToFile() {
+    Customer* selected = selectCustomer();
+    cout << "What should the file be called (do not include the file extension)" << endl;
+    string fileName;
+    getline(cin, fileName);
+
+    ofstream statusFile;
+    statusFile.open(fileName + ".txt");
+
+    statusFile << "Orders for: " << selected->getName() << endl << endl;
+
+    statusFile << endl << "Pending orders:" << endl;
+    statusFile << "| Name                      |      Type      | Paid? |    Size    |  Price  |   Weight   | ID        |" << endl;
+    for (Deliverable * d : selected->pendingOrders) {
+        string paid = d->isPaid() ? "Yes" : "No";
+        string size = removeExcessDecimals(to_string(d->getSize()));
+        if(d->getSize() == -1) {
+            size = "Special";
+        }
+
+        statusFile << getCell(d->getName(), 25);
+        statusFile << getCell(d->orderType, 14);
+        statusFile << getCell(paid, 5);
+        statusFile << getCell(size, 10);
+        statusFile << getCell("$" + removeExcessDecimals(to_string(d->getPrice())), 7);
+        statusFile << getCell(removeExcessDecimals(to_string(d->getWeight())) + " kg", 10);
+        statusFile << getCell(to_string(d->getID()), 9);
+        statusFile << "|" << endl;
+    }
+
+    statusFile << endl << "Completed orders:" << endl;
+    statusFile << "| Name                      |      Type      |    Size    |  Price  |   Weight   | ID        |" << endl;
+    for (Deliverable * d : selected->completedOrders) {
+        string paid = d->isPaid() ? "Yes" : "No";
+        string delivered = d->isDelivered() ? "Yes" : "No";
+        string size = removeExcessDecimals(to_string(d->getSize()));
+        if (d->getSize() == -1) {
+            size = "Special";
+        }
+
+        statusFile << getCell(d->getName(), 25);
+        statusFile << getCell(d->orderType, 14);
+        statusFile << getCell(size, 10);
+        statusFile << getCell("$" + removeExcessDecimals(to_string(d->getPrice())), 7);
+        statusFile << getCell(removeExcessDecimals(to_string(d->getWeight())) + " kg", 10);
+        statusFile << getCell(to_string(d->getID()), 9);
+        statusFile << "|" << endl;
+    }
+
+    statusFile.close();
+    cout << "File successfully written" << endl;
 }
 
 /**
@@ -323,7 +391,7 @@ void printLabel() {
 /**
  * Read order data from a specially formatted file and add the order to a customer's account
 */
-void readOrder() {
+void readOrders() {
     Customer *customer = selectCustomer();
 
     std::cout << 
@@ -357,27 +425,24 @@ void readOrder() {
                 case 4:
                     depth = stof(line);
                     break;
+                case 5:
+                    if (width < 30 && length < 30 && depth < 2) {
+                        customer->pendingOrders.push_back(new Envelope(name, weight, length, width));
+                    }
+                    else if (width < 100 && length < 100 && depth < 100 && weight < 100) {
+                        customer->pendingOrders.push_back(new Parcel(name, weight, length, width, depth));
+                    }
+                    else {
+                        customer->pendingOrders.push_back(new TruckDelivery(name, weight));
+                    }
+                    break;
             }
             count++;
-            if(count > 4) {
-                break;
-            }
-        }
-
-        if (width < 30 && length < 30 && depth < 2) {
-            customer->pendingOrders.push_back(new Envelope(name, weight, length, width));
-            cout << "The order was successfully added. It will be delivered in an envelope." << endl;
-        }
-        else if (width < 100 && length < 100 && depth < 100 && weight < 100) {
-            customer->pendingOrders.push_back(new Parcel(name, weight, length, width, depth));
-            cout << "The order was successfully added. It will be delivered in a parcel." << endl;
-        }
-        else {
-            customer->pendingOrders.push_back(new TruckDelivery(name, weight));
-            cout << "The order was successfully added. It will be delivered specially in a truck." << endl;
+            count = count % 6; // Limit the count to a max of 6
         }
 
         orderFile.close();
+        cout << "The orders were successfully added" << endl;
     }
 
     else {

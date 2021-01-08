@@ -14,12 +14,13 @@ Deliverable * selectOrder(Customer * customer);
 void addCustomer();
 void deleteCustomer();
 void printOrderStatuses();
+void printOrderStatusesToFile();
 void addOrder();
 void cancelOrder();
 void recordPay();
 void deliver();
 void printLabel();
-void readOrder();
+void readOrders();
 
 // Globals
 extern std::vector<Customer> allCustomers;
