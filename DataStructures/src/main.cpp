@@ -89,7 +89,8 @@ void printMenu() {
     cout << "8. Print the status of orders for a customer" << endl;
     cout << "9. Print a customer's orders to a file" << endl;
     cout << "10. Load orders from shipping labels in a text file" << endl;
-    cout << "11. Quit" << endl;
+    cout << "11. Sort orders" << endl;
+    cout << "12. Quit" << endl;
     cout << endl;
 }
 
@@ -110,12 +111,6 @@ int main() {
     "for all your different customers.\n" << endl;
 
     bool exit = false;
-
-    // vector<float> f = {8, 2, 5, 7, 3, 6, 4, 1};
-    // insertionSort(&f, &compareFloats);
-    // for(float i : f) {
-    //     cout << i << endl;
-    // }
 
     while(!exit) {
         printMenu();
@@ -168,6 +163,7 @@ int main() {
             printOrderStatuses();
             break;
         case 9:
+            // Print order statuses to a file
             printOrderStatusesToFile();
             break;
         case 10:
@@ -175,6 +171,10 @@ int main() {
             readOrders();
             break;
         case 11:
+            // Sort orders
+            sortOrders();
+            break;
+        case 12:
             // Quit
             exit = true;
             break;

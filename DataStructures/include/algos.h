@@ -8,6 +8,7 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -50,7 +51,7 @@ void insertionSort(vector<T, allocator<T>> *list, bool (*compare)(T, T)) {
     for(int i = 1; i < list->size(); i++) {
         int x = i - 1;
         temp = list->at(i);
-        while (compare(list->at(x), temp) && x >= 0) {
+        while (x >= 0 && compare(list->at(x), temp)) {
             list->at(x + 1) = list->at(x);
             x--;
         }

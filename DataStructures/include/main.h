@@ -21,6 +21,7 @@ void recordPay();
 void deliver();
 void printLabel();
 void readOrders();
+void sortOrders();
 
 // Globals
 extern std::vector<Customer> allCustomers;

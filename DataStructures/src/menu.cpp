@@ -3,6 +3,7 @@
 #include "parcel.h"
 #include "envelope.h"
 #include "truckdelivery.h"
+#include "algos.h"
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -203,7 +204,7 @@ void printOrderStatuses() {
 }
 
 /**
- * Print a table of all orders, completed and pending, from a customer to a file
+ * Store a table of all orders, completed and pending, from a customer to a file
 */
 void printOrderStatusesToFile() {
     Customer* selected = selectCustomer();
@@ -447,4 +448,14 @@ void readOrders() {
     }
 
     return;
+}
+
+bool compareDeliverables(Deliverable * a, Deliverable * b) {
+    return a->getName() > b->getName();
+}
+
+void sortOrders() {
+    Customer *customer = selectCustomer();
+
+    insertionSort(&customer->pendingOrders, compareDeliverables);
 }
