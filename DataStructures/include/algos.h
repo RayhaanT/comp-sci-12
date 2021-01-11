@@ -27,7 +27,7 @@ void bubbleSort(vector<T, std::allocator<T>> *list, bool (*compare)(T, T)) {
 
     for(int i = 1; i < list->size(); i++) {
         for(int x = list->size() - 1; x >= i; x--) {
-            if (compare(list->at(x - 1), list->at(x))) {
+            if(compare(list->at(x), list->at(x - 1))) {
                 temp = list->at(x - 1);
                 list->at(x - 1) = list->at(x);
                 list->at(x) = temp;
@@ -51,7 +51,7 @@ void insertionSort(vector<T, allocator<T>> *list, bool (*compare)(T, T)) {
     for(int i = 1; i < list->size(); i++) {
         int x = i - 1;
         temp = list->at(i);
-        while (x >= 0 && compare(list->at(x), temp)) {
+        while (x >= 0 && compare(temp, list->at(x))) {
             list->at(x + 1) = list->at(x);
             x--;
         }
@@ -113,11 +113,11 @@ int binarySearch(vector<T, allocator<T>> list, T target, bool (*compare)(T, T), 
 
     do {
         int currentIndex = floor + ((ceiling - floor) / 2);
-        if(match(list[currentIndex], target)) {
+        if(match(target, list[currentIndex])) {
             return currentIndex;
         }
         // If current value is greater than the target
-        if(compare(list[currentIndex], target)) {
+        if(compare(target, list[currentIndex])) {
             ceiling = currentIndex - 1;
         }
         // If current value is less than the target

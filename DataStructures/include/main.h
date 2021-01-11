@@ -22,6 +22,7 @@ void deliver();
 void printLabel();
 void readOrders();
 void sortOrders();
+void searchForOrder();
 
 // Globals
 extern std::vector<Customer> allCustomers;

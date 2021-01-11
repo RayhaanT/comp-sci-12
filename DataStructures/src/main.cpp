@@ -89,13 +89,14 @@ void printMenu() {
     cout << "8. Print the status of orders for a customer" << endl;
     cout << "9. Print a customer's orders to a file" << endl;
     cout << "10. Load orders from shipping labels in a text file" << endl;
-    cout << "11. Sort orders" << endl;
-    cout << "12. Quit" << endl;
+    cout << "11. Sort orders by name" << endl;
+    cout << "12. Search for an order by name" << endl;
+    cout << "13. Quit" << endl;
     cout << endl;
 }
 
 bool compareFloats(float a, float b) {
-    return a > b;
+    return a < b;
 }
 
 /**
@@ -175,6 +176,10 @@ int main() {
             sortOrders();
             break;
         case 12:
+            // Search for an order
+            searchForOrder();
+            break;
+        case 13:
             // Quit
             exit = true;
             break;

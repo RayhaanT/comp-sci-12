@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <chrono>
 
 using namespace std;
 
@@ -83,7 +84,7 @@ Deliverable * selectOrder(Customer * customer) {
 */
 void addCustomer() {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    cout << "What's the customer's name? ";
+    cout << "Customer name: ";
     string name;
     getline(cin, name);
 
@@ -451,11 +452,96 @@ void readOrders() {
 }
 
 bool compareDeliverables(Deliverable * a, Deliverable * b) {
-    return a->getName() > b->getName();
+    return a->getName() < b->getName();
+}
+
+bool matchDeliverables(Deliverable * a, Deliverable * b) {
+    return a->getName() == b->getName();
 }
 
 void sortOrders() {
     Customer *customer = selectCustomer();
 
-    insertionSort(&customer->pendingOrders, compareDeliverables);
+    cout << "Insertion (1) or bubble (2) or built-in (3) sort: ";
+    int choice;
+    cin >> choice;
+
+    auto t1 = chrono::high_resolution_clock::now();
+
+    if(choice == 1) {
+        insertionSort(&customer->pendingOrders, compareDeliverables);
+    }
+    else if(choice == 2) {
+        bubbleSort(&customer->pendingOrders, compareDeliverables);
+    }
+    else {
+        sort(customer->pendingOrders.begin(), customer->pendingOrders.end(), compareDeliverables);
+    }
+
+    auto t2 = chrono::high_resolution_clock::now();
+
+    auto duration = chrono::duration_cast<chrono::milliseconds>(t2 - t1).count();
+
+    cout << "Sort complete\nTime taken: " << duration << " ms";
+}
+
+void searchForOrder() {
+    Customer *customer = selectCustomer();
+
+    cout << "Order Name: ";
+    string name;
+    getline(cin, name);
+
+    cout << "Linear (1) or binary (2) search: ";
+    int choice;
+    cin >> choice;
+
+    Envelope temp = Envelope(name, 0, 0, 0);
+    Deliverable* target = &temp;
+    int index;
+    std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::duration<long long int, std::ratio<1, 1000000000>>> t1;
+
+    if (choice == 1) {
+        t1 = chrono::high_resolution_clock::now();
+        index = linearSearch(customer->pendingOrders, target, matchDeliverables);
+    }
+    else {
+        cout << "Are the orders already sorted? (y/n): ";
+        char choice;
+        cin >> choice;
+
+        t1 = chrono::high_resolution_clock::now();
+        if(choice != 'y') {
+            sort(customer->pendingOrders.begin(), customer->pendingOrders.end(), compareDeliverables);
+        }
+        index = binarySearch(customer->pendingOrders, target, compareDeliverables, matchDeliverables);
+    }
+
+    auto t2 = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::milliseconds>(t2 - t1).count();
+    cout << "Search complete\nTime taken: " << duration << " ms" << endl;
+
+    if(index == -1) {
+        cout << "No orders by that name exist under this customer." << endl;
+        return;
+    }
+
+    Deliverable *match = customer->pendingOrders[index];
+
+    cout << "| Name                      |      Type      | Paid? |    Size    |  Price  |   Weight   | ID        |" << endl;
+    string paid = match->isPaid() ? "Yes" : "No";
+    string size = removeExcessDecimals(to_string(match->getSize()));
+    if (match->getSize() == -1)
+    {
+        size = "Special";
+    }
+
+    printCell(match->getName(), 25);
+    printCell(match->orderType, 14);
+    printCell(paid, 5);
+    printCell(size, 10);
+    printCell("$" + removeExcessDecimals(to_string(match->getPrice())), 7);
+    printCell(removeExcessDecimals(to_string(match->getWeight())) + " kg", 10);
+    printCell(to_string(match->getID()), 9);
+    cout << "|" << endl;
 }
