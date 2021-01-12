@@ -92,6 +92,7 @@ void printMenu() {
             << "11. Sort orders by name" << endl
             << "12. Search for an order by name" << endl
             << "13. Quit" << endl
+            << endl
             << "Non-delivery options: " << endl
             << "14. Get the sum of digits in a number" << endl
             << "15. Check a string for mirrordromes" << endl
@@ -132,73 +133,78 @@ int main() {
             response = -1;
         }
 
-        switch (response)
-        {
-        case 1:
-            // Add customer
-            addCustomer();
-            break;
-        case 2:
-            // Delete customer
-            deleteCustomer();
-            break;
-        case 3:
-            // Add order
-            addOrder();
-            break;
-        case 4:
-            // Cancel order
-            cancelOrder();
-            break;
-        case 5:
-            // Record payment
-            recordPay();
-            break;
-        case 6:
-            // Write label to file
-            printLabel();
-            break;
-        case 7:
-            // Mark an order as delivered
-            deliver();
-            break;
-        case 8:
-            // Print order statuses
-            printOrderStatuses();
-            break;
-        case 9:
-            // Print order statuses to a file
-            printOrderStatusesToFile();
-            break;
-        case 10:
-            // Read orders from file
-            readOrders();
-            break;
-        case 11:
-            // Sort orders
-            sortOrders();
-            break;
-        case 12:
-            // Search for an order
-            searchForOrder();
-            break;
-        case 13:
-            // Quit
-            exit = true;
-            break;
-        case 14:
-            // Sum digits
-            sumDigits();
-            break;
-        case 15:
-            // Count mirrordromes
-            getMirrordromes();
-            break;
+        try {
+            switch (response) {
+            case 1:
+                // Add customer
+                addCustomer();
+                break;
+            case 2:
+                // Delete customer
+                deleteCustomer();
+                break;
+            case 3:
+                // Add order
+                addOrder();
+                break;
+            case 4:
+                // Cancel order
+                cancelOrder();
+                break;
+            case 5:
+                // Record payment
+                recordPay();
+                break;
+            case 6:
+                // Write label to file
+                printLabel();
+                break;
+            case 7:
+                // Mark an order as delivered
+                deliver();
+                break;
+            case 8:
+                // Print order statuses
+                printOrderStatuses();
+                break;
+            case 9:
+                // Print order statuses to a file
+                printOrderStatusesToFile();
+                break;
+            case 10:
+                // Read orders from file
+                readOrders();
+                break;
+            case 11:
+                // Sort orders
+                sortOrders();
+                break;
+            case 12:
+                // Search for an order
+                searchForOrder();
+                break;
+            case 13:
+                // Quit
+                exit = true;
+                break;
+            case 14:
+                // Sum digits
+                sumDigits();
+                break;
+            case 15:
+                // Count mirrordromes
+                getMirrordromes();
+                break;
 
-        default:
-            cout << "Invalid choice." << endl;
-            break;
+            default:
+                cout << "Invalid choice." << endl;
+                break;
+            }
         }
+        catch (const exception &e) {
+            cout << e.what() << '\n';
+        }
+
         if(!exit) {
             cout << endl;
             system("pause");

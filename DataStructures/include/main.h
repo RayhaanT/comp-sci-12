@@ -28,4 +28,3 @@ void getMirrordromes();
 
 // Globals
 extern std::vector<Customer *> allCustomers;
-const Customer failedSearch("ERROR", "ERROR", "ERROR", "ERROR", "ERROR");

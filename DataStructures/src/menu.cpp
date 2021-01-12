@@ -33,9 +33,7 @@ Customer * selectCustomer() {
     }
 
     if(matchIndices.size() < 1) {
-        cout << "There is no customer by that name" << endl;
-        Customer f = failedSearch;
-        return &f;
+        throw std::runtime_error("There is no customer by that name");
     }
     if(matchIndices.size() > 1) {
         while(1) {
