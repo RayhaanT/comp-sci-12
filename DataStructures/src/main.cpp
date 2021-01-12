@@ -26,7 +26,7 @@ this program to handle string inputs and exceptions.
 
 */
 
-vector<Customer> allCustomers;
+vector<Customer *> allCustomers;
 
 /**
  * Strips whitespace from the beginning and ends of strings

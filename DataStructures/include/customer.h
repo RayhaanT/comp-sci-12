@@ -24,7 +24,7 @@ public:
     bool pay(int deliverableID);
     bool deliver(int deliverableID);
 
-    // Package data
+    // Package data (pointers so the actual data goes on the heap)
     std::vector<Deliverable*> pendingOrders;
     std::vector<Deliverable*> completedOrders;
 

@@ -27,7 +27,7 @@ Customer * selectCustomer() {
     vector<int> matchIndices;
 
     for(int i = 0; i < allCustomers.size(); i++) {
-        if(allCustomers[i].getName() == name) {
+        if(allCustomers[i]->getName() == name) {
             matchIndices.push_back(i);
         }
     }
@@ -43,7 +43,7 @@ Customer * selectCustomer() {
             vector<int> ids;
             
             for (int i = 0; i < matchIndices.size(); i++) {
-                int thisID = allCustomers[matchIndices[i]].getID();
+                int thisID = allCustomers[matchIndices[i]]->getID();
                 cout << i + 1 <<". " << thisID << endl;
             }
             
@@ -51,12 +51,12 @@ Customer * selectCustomer() {
             cin >> selection;
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             if(selection > 0) {
-                return &allCustomers[matchIndices[selection - 1]];
+                return allCustomers[matchIndices[selection - 1]];
             }
         }
     }
     else {
-        return &allCustomers[matchIndices[0]];
+        return allCustomers[matchIndices[0]];
     }
 }
 
@@ -98,7 +98,7 @@ void addCustomer() {
     cout << "Address: ";
     getline(cin, address);
 
-    allCustomers.push_back(Customer(name, country, region, municipality, address));
+    allCustomers.push_back(new Customer(name, country, region, municipality, address));
     cout << "Successfully recorded" << endl;
 
     return;
@@ -123,7 +123,7 @@ void deleteCustomer() {
     Customer* selected = selectCustomer();
     int deleteIndex = 0;
     for(int i = 0; i < allCustomers.size(); i++) {
-        if(allCustomers[i].getID() == selected->getID()) {
+        if(allCustomers[i]->getID() == selected->getID()) {
             deleteIndex = i;
         }
     }
@@ -518,8 +518,8 @@ void searchForOrder() {
     }
 
     auto t2 = chrono::high_resolution_clock::now();
-    auto duration = chrono::duration_cast<chrono::milliseconds>(t2 - t1).count();
-    cout << "Search complete\nTime taken: " << duration << " ms" << endl;
+    auto duration = chrono::duration_cast<chrono::microseconds>(t2 - t1).count();
+    cout << "Search complete\nTime taken: " << duration << " microseconds" << endl;
 
     if(index == -1) {
         cout << "No orders by that name exist under this customer." << endl;
