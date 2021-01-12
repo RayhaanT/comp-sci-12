@@ -12,6 +12,14 @@
 
 using namespace std;
 
+// Recursion
+int iterativeSum(int num);
+int recursiveSum(int num);
+int iterativePalindromes(string str);
+int recursivePalindromes(string str);
+int iterativeMirrordromes(string str);
+int recursiveMirrordromes(string str);
+
 /**
  * A generic function that takes a list of some kind and a comparator function
  * and sorts it using the bubble sort algorithm. As it uses pointers, returning

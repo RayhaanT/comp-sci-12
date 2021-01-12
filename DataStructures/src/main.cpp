@@ -78,21 +78,21 @@ string removeExcessDecimals(string str) {
  * Print the main menu of the application to the console
 */
 void printMenu() {
-    cout << endl;
-    cout << "1. Add a customer" << endl;
-    cout << "2. Delete a customer" << endl;
-    cout << "3. Add a delivery order" << endl;
-    cout << "4. Cancel a delivery order" << endl;
-    cout << "5. Record payment for a delivery order" << endl;
-    cout << "6. Get a printable shipping label for an order" << endl;
-    cout << "7. Deliver an order" << endl;
-    cout << "8. Print the status of orders for a customer" << endl;
-    cout << "9. Print a customer's orders to a file" << endl;
-    cout << "10. Load orders from shipping labels in a text file" << endl;
-    cout << "11. Sort orders by name" << endl;
-    cout << "12. Search for an order by name" << endl;
-    cout << "13. Quit" << endl;
-    cout << endl;
+    cout    << endl
+            << "1. Add a customer" << endl
+            << "2. Delete a customer" << endl
+            << "3. Add a delivery order" << endl
+            << "4. Cancel a delivery order" << endl
+            << "5. Record payment for a delivery order" << endl
+            << "6. Get a printable shipping label for an order" << endl
+            << "7. Deliver an order" << endl
+            << "8. Print the status of orders for a customer" << endl
+            << "9. Print a customer's orders to a file" << endl
+            << "10. Load orders from shipping labels in a text file" << endl
+            << "11. Sort orders by name" << endl
+            << "12. Search for an order by name" << endl
+            << "13. Quit" << endl
+            << endl;
 }
 
 bool compareFloats(float a, float b) {
@@ -112,6 +112,26 @@ int main() {
     "for all your different customers.\n" << endl;
 
     bool exit = false;
+
+    // cout << iterativeSum(295752) << endl; // 30
+    // cout << recursiveSum(295752) << endl;
+    // cout << iterativeSum(903966) << endl; // 33
+    // cout << recursiveSum(903966) << endl;
+    // cout << iterativeSum(407030) << endl; // 14
+    // cout << recursiveSum(407030) << endl;
+    // cout << iterativeSum(320655) << endl; // 21
+    // cout << recursiveSum(320655) << endl;
+
+    cout << recursivePalindromes("totally") << endl;
+    cout << recursivePalindromes("kayak") << endl;
+
+    cout << iterativePalindromes("totally") << endl;
+    cout << iterativePalindromes("kayak") << endl;
+
+    cout << iterativeMirrordromes("totally") << endl;
+    cout << iterativeMirrordromes("kayak") << endl;
+
+    return 0;
 
     while(!exit) {
         printMenu();
