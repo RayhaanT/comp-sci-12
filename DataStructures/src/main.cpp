@@ -89,8 +89,8 @@ void printMenu() {
             << "8. Print the status of orders for a customer" << endl
             << "9. Print a customer's orders to a file" << endl
             << "10. Load orders from shipping labels in a text file" << endl
-            << "11. Sort orders by name" << endl
-            << "12. Search for an order by name" << endl
+            << "11. Sort pending orders by name" << endl
+            << "12. Search for a pending order by name" << endl
             << "13. Quit" << endl
             << endl
             << "Non-delivery options: " << endl
@@ -99,6 +99,14 @@ void printMenu() {
             << endl;
 }
 
+/**
+ * A comparator function used to test the sorting algorithms
+ * found in algos.h
+ * 
+ * @param a - the first float to compare
+ * @param b - the second float to compare
+ * @return whether a < b
+*/
 bool compareFloats(float a, float b) {
     return a < b;
 }

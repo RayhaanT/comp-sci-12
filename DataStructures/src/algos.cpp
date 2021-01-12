@@ -2,6 +2,13 @@
 #include "algos.h"
 #include <algorithm>
 
+/**
+ * Uses an iterative algorithm to calculate the sum of all
+ * digits in a non-zero integer
+ * 
+ * @param num - the number to be summed
+ * @return the sum of the digits, -1 if num < 0
+*/
 int iterativeSum(int num) {
     if(num < 0) {
         return -1;
@@ -16,6 +23,13 @@ int iterativeSum(int num) {
     return sum;
 }
 
+/**
+ * Uses a recursive algorithm to calculate the sum of all
+ * digits in a non-zero integer
+ * 
+ * @param num - the number to be summed
+ * @return the sum of the digits
+*/
 int recursiveSum(int num) {
     if(num < 0) {
         return -1;
@@ -28,6 +42,12 @@ int recursiveSum(int num) {
     return recursiveSum(num / 10) + num % 10;
 }
 
+/**
+ * Checks if a string is a palindrome
+ * 
+ * @param str- the string to evaluate
+ * @return whether the input is a palindrome
+*/
 bool checkPalindrome(string str) {
     int lastIndex = str.size() - 1;
 
@@ -45,6 +65,14 @@ bool checkPalindrome(string str) {
     return true;
 }
 
+/**
+ * Compares 2 characters to see if they qualify as mirror images
+ * in a mirrordrome
+ * 
+ * @param a - the first character to compare
+ * @param b - the second character to compare
+ * @return whether the characters are mirrors
+*/
 bool compareMirrorChars(char a, char b) {
     if((a == 'b' && b == 'd') || (a == 'd' && b == 'b')) {
         return true;
@@ -59,6 +87,13 @@ bool compareMirrorChars(char a, char b) {
     return false;
 }
 
+/**
+ * Check if a character belongs to the family of single 
+ * characters that are considered mirrors (i, l, m, n, o, t, u, v, w, x) 
+ * 
+ * @param c - the character to evaluate
+ * @return whether the character is a mirror
+*/
 bool checkSingleMirrorChar(char c) {
     if(c == 'i') {
         return true;
@@ -78,6 +113,11 @@ bool checkSingleMirrorChar(char c) {
     return false;
 }
 
+/**
+ * Checks if a given string is a mirrordrome
+ * 
+ * @param str - the string to evaluate
+*/
 bool checkMirrordrome(string str) {
     int lastIndex = str.size() - 1;
 
@@ -100,6 +140,13 @@ bool checkMirrordrome(string str) {
     return true;
 }
 
+/**
+ * Counts how many palindromes exist within a given
+ * string's set of substrings using an iterative algorithm.
+ * 
+ * @param str - the string to evaluate
+ * @return the number of palindromes found
+*/
 int iterativePalindromes(string str) {
     transform(str.begin(), str.end(), str.begin(),
                    [](unsigned char c) { return tolower(c); });
@@ -121,6 +168,13 @@ int iterativePalindromes(string str) {
     return count;
 }
 
+/**
+ * Counts how many palindromes exist within a given
+ * string's set of substrings using a recursive algorithm.
+ * 
+ * @param str - the string to evaluate
+ * @return the number of palindromes found
+*/
 int computeRecursivePalindrome(string str) {
     if(str.size() == 0) {
         return 0;
@@ -139,12 +193,27 @@ int computeRecursivePalindrome(string str) {
     return count + computeRecursivePalindrome(str.substr(1, str.size() - 1));
 }
 
+/**
+ * A wrapper function for computeRecursivePalindrome that
+ * sets the string to lowercase before evaluating it so that
+ * it doesn't have to be done on every recursive call
+ * 
+ * @param str - the string to evaluate
+ * @return the number of palindromes found by computeRecursivePalindrome
+*/
 int recursivePalindromes(string str) {
     transform(str.begin(), str.end(), str.begin(),
               [](unsigned char c) { return tolower(c); });
     return computeRecursivePalindrome(str);
 }
 
+/**
+ * Counts how many mirrordromes exist within a given
+ * string's set of substrings using an iterative algorithm.
+ * 
+ * @param str - the string to evaluate
+ * @return the number of mirrordromes found
+*/
 int iterativeMirrordromes(string str) {
     transform(str.begin(), str.end(), str.begin(),
                    [](unsigned char c) { return tolower(c); });
@@ -165,6 +234,13 @@ int iterativeMirrordromes(string str) {
     return count;
 }
 
+/**
+ * Counts how many mirrordromes exist within a given
+ * string's set of substrings using a recursive algorithm.
+ * 
+ * @param str - the string to evaluate
+ * @return the number of mirrordromes found
+*/
 int computeRecursiveMirrordrome(string str) {
     if(str.size() == 0) {
         return 0;
@@ -183,6 +259,14 @@ int computeRecursiveMirrordrome(string str) {
     return count + computeRecursiveMirrordrome(str.substr(1, str.size() - 1));
 }
 
+/**
+ * A wrapper function for computeRecursiveMirrordrome that
+ * sets the string to lowercase before evaluating it so that
+ * it doesn't have to be done on every recursive call
+ * 
+ * @param str - the string to evaluate
+ * @return the number of mirrordromes found by computeRecursiveMirrordrome
+*/
 int recursiveMirrordromes(string str) {
     transform(str.begin(), str.end(), str.begin(),
               [](unsigned char c) { return tolower(c); });

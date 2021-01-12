@@ -102,6 +102,17 @@ void addCustomer() {
     return;
 }
 
+/**
+ * Adds a Deliverable object to a customer's list of pending orders.
+ * Deliverable type is selected based on item weight and size data.
+ * 
+ * @param customer - A pointer to the Customer to append to
+ * @param name - the name of the order
+ * @param weight - the item's weight
+ * @param length - the item's length
+ * @param width - the item's width
+ * @param depth - the item's depth
+*/
 void addOrderToCustomer(Customer * customer, string name, float weight, float length, float width, float depth) {
     if (width < 30 && length < 30 && depth < 2) {
         customer->pendingOrders.push_back(new Envelope(name, weight, length, width));
@@ -329,7 +340,6 @@ void recordPay() {
     cout << "The payment was insufficient for this order." << endl;
 }
 
-
 /**
  * Record an order as delivered if it has been paid
 */
@@ -446,14 +456,32 @@ void readOrders() {
     return;
 }
 
+/**
+ * A comparator function used to sort Deliverables by name
+ * 
+ * @param a - the first Deliverable to compare
+ * @param b - the second Deliverable to compare
+ * @return whether a's name comes first alphabetically
+*/
 bool compareDeliverables(Deliverable * a, Deliverable * b) {
     return a->getName() < b->getName();
 }
 
+/**
+ * A comparator function used to search for Deliverables by name
+ * 
+ * @param a - the first Deliverable to compare
+ * @param b - the second Deliverable to compare
+ * @return whether their names match
+*/
 bool matchDeliverables(Deliverable * a, Deliverable * b) {
     return a->getName() == b->getName();
 }
 
+/**
+ * Sort the Deliverables in a Customer's pending orders vector by name using
+ * insertion sort, bubble sort, or the standard library's std::sort
+*/
 void sortOrders() {
     Customer *customer = selectCustomer();
 
@@ -484,6 +512,10 @@ void sortOrders() {
     cout << "Sort complete\nTime taken: " << duration << " ms";
 }
 
+/**
+ * Search for a Deliverable in a Customer's pending orders vector by name
+ * using binary or linear search 
+*/
 void searchForOrder() {
     Customer *customer = selectCustomer();
 
@@ -545,6 +577,9 @@ void searchForOrder() {
     cout << "|" << endl;
 }
 
+/**
+ * Calculate the sum of all the digits in a user-provided integer
+*/
 void sumDigits() {
     cout << "The number to sum: ";
     int input;
@@ -565,6 +600,9 @@ void sumDigits() {
     }
 }
 
+/**
+ * Count how many mirrordromes are contained within a user-provided string
+*/
 void getMirrordromes() {
     cout << "The string to compute: ";
     string input;
