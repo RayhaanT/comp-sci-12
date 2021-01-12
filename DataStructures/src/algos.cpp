@@ -31,6 +31,11 @@ int recursiveSum(int num) {
 bool checkPalindrome(string str) {
     int lastIndex = str.size() - 1;
 
+    // Palindromes must be >1 char
+    if(lastIndex == 0) {
+        return false;
+    }
+
     for(int i = 0; i < str.size() / 2; i++) {
         if(str[i] != str[lastIndex - i]) {
             return false;
@@ -59,7 +64,7 @@ bool checkSingleMirrorChar(char c) {
         return true;
     }
 
-    int ci = c = 'a';
+    int ci = c - 'a';
     
     // l, m, n, o
     if(ci > 10 && ci < 15) {
@@ -93,15 +98,12 @@ bool checkMirrordrome(string str) {
     }
 
     return true;
-
 }
 
 int iterativePalindromes(string str) {
     transform(str.begin(), str.end(), str.begin(),
                    [](unsigned char c) { return tolower(c); });
     int count = 0;
-
-    cout << checkPalindrome("s") << endl;
 
     // Check all substrings
     for(int i = 0; i < str.size(); i++) {
@@ -152,7 +154,7 @@ int iterativeMirrordromes(string str) {
     for(int i = 0; i < str.size(); i++) {
         string sub = "";
         // Have to check all chars because mirrordromes can be 1 char
-        for(int x = 0; x < str.size(); x++) {
+        for(int x = i; x < str.size(); x++) {
             sub += str[x];
             if(checkMirrordrome(sub)) {
                 count++;
@@ -161,4 +163,28 @@ int iterativeMirrordromes(string str) {
     }
 
     return count;
+}
+
+int computeRecursiveMirrordrome(string str) {
+    if(str.size() == 0) {
+        return 0;
+    }
+
+    string sub = "";
+    int count = 0;
+
+    for(int i = 0; i < str.size(); i++) {
+        sub += str[i];
+        if(checkMirrordrome(sub)) {
+            count++;
+        }
+    }
+
+    return count + computeRecursiveMirrordrome(str.substr(1, str.size() - 1));
+}
+
+int recursiveMirrordromes(string str) {
+    transform(str.begin(), str.end(), str.begin(),
+              [](unsigned char c) { return tolower(c); });
+    return computeRecursiveMirrordrome(str);
 }

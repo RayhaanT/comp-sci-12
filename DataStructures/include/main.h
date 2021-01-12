@@ -23,6 +23,8 @@ void printLabel();
 void readOrders();
 void sortOrders();
 void searchForOrder();
+void sumDigits();
+void getMirrordromes();
 
 // Globals
 extern std::vector<Customer *> allCustomers;

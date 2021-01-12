@@ -141,10 +141,7 @@ string getCell(string data, int length) {
     string cell = "| ";
     cell += data;
     int numberOfSpaces = length - data.size();
-    for(int i = 0; i < numberOfSpaces; i++) {
-        cell += " ";
-    }
-    cell += " ";
+    cell += string(numberOfSpaces + 1, ' ');
     return cell;
 }
 
@@ -463,19 +460,23 @@ void sortOrders() {
     Customer *customer = selectCustomer();
 
     cout << "Insertion (1) or bubble (2) or built-in (3) sort: ";
-    int choice;
+    char choice;
     cin >> choice;
 
     auto t1 = chrono::high_resolution_clock::now();
 
-    if(choice == 1) {
+    if(choice == '1') {
         insertionSort(&customer->pendingOrders, compareDeliverables);
     }
-    else if(choice == 2) {
+    else if(choice == '2') {
         bubbleSort(&customer->pendingOrders, compareDeliverables);
     }
-    else {
+    else if(choice == '3') {
         sort(customer->pendingOrders.begin(), customer->pendingOrders.end(), compareDeliverables);
+    }
+    else {
+        cout << "Invalid choice" << endl;
+        return;
     }
 
     auto t2 = chrono::high_resolution_clock::now();
@@ -493,7 +494,7 @@ void searchForOrder() {
     getline(cin, name);
 
     cout << "Linear (1) or binary (2) search: ";
-    int choice;
+    char choice;
     cin >> choice;
 
     Envelope temp = Envelope(name, 0, 0, 0);
@@ -501,11 +502,11 @@ void searchForOrder() {
     int index;
     std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::duration<long long int, std::ratio<1, 1000000000>>> t1;
 
-    if (choice == 1) {
+    if (choice == '1') {
         t1 = chrono::high_resolution_clock::now();
         index = linearSearch(customer->pendingOrders, target, matchDeliverables);
     }
-    else {
+    else if(choice == '2') {
         cout << "Are the orders already sorted? (y/n): ";
         char choice;
         cin >> choice;
@@ -544,4 +545,44 @@ void searchForOrder() {
     printCell(removeExcessDecimals(to_string(match->getWeight())) + " kg", 10);
     printCell(to_string(match->getID()), 9);
     cout << "|" << endl;
+}
+
+void sumDigits() {
+    cout << "The number to sum: ";
+    int input;
+    cin >> input;
+
+    cout << "Perform the computation iteratively (1) or recursively (2)" << endl;
+    char choice;
+    cin >> choice;
+
+    if(choice == '1') {
+        cout << "Sum of the digits of " << input << " = " << iterativeSum(input) << endl;
+    }
+    else if(choice == '2') {
+        cout << "Sum of the digits of " << input << " = " << recursiveSum(input) << endl;
+    }
+    else {
+        cout << "Invalid choice" << endl;
+    }
+}
+
+void getMirrordromes() {
+    cout << "The string to compute: ";
+    string input;
+    cin >> input;
+
+    cout << "Perform the computation iteratively (1) or recursively (2)" << endl;
+    char choice;
+    cin >> choice;
+
+    if(choice == '1') {
+        cout << "There are " << iterativeMirrordromes(input) << " mirrordromes in \"" << input << "\"" << endl;
+    }
+    else if(choice == '2') {
+        cout << "There are " << recursiveMirrordromes(input) << " mirrordromes in \"" << input << "\"" << endl;
+    }
+    else {
+        cout << "Invalid choice" << endl;
+    }
 }

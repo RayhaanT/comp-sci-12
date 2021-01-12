@@ -92,6 +92,9 @@ void printMenu() {
             << "11. Sort orders by name" << endl
             << "12. Search for an order by name" << endl
             << "13. Quit" << endl
+            << "Non-delivery options: " << endl
+            << "14. Get the sum of digits in a number" << endl
+            << "15. Check a string for mirrordromes" << endl
             << endl;
 }
 
@@ -112,26 +115,6 @@ int main() {
     "for all your different customers.\n" << endl;
 
     bool exit = false;
-
-    // cout << iterativeSum(295752) << endl; // 30
-    // cout << recursiveSum(295752) << endl;
-    // cout << iterativeSum(903966) << endl; // 33
-    // cout << recursiveSum(903966) << endl;
-    // cout << iterativeSum(407030) << endl; // 14
-    // cout << recursiveSum(407030) << endl;
-    // cout << iterativeSum(320655) << endl; // 21
-    // cout << recursiveSum(320655) << endl;
-
-    cout << recursivePalindromes("totally") << endl;
-    cout << recursivePalindromes("kayak") << endl;
-
-    cout << iterativePalindromes("totally") << endl;
-    cout << iterativePalindromes("kayak") << endl;
-
-    cout << iterativeMirrordromes("totally") << endl;
-    cout << iterativeMirrordromes("kayak") << endl;
-
-    return 0;
 
     while(!exit) {
         printMenu();
@@ -203,12 +186,23 @@ int main() {
             // Quit
             exit = true;
             break;
+        case 14:
+            // Sum digits
+            sumDigits();
+            break;
+        case 15:
+            // Count mirrordromes
+            getMirrordromes();
+            break;
 
         default:
             cout << "Invalid choice." << endl;
             break;
         }
-        cout << endl;
+        if(!exit) {
+            cout << endl;
+            system("pause");
+        }
     }
 
     return 0;
