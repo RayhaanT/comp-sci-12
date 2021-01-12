@@ -11,9 +11,9 @@
 */
 int iterativeSum(int num) {
     if(num < 0) {
-        return -1;
+        throw runtime_error("The number must be a non-negative integer");
     }
-    
+
     int sum = 0;
     while(num > 0) {
         int lastDigit = num % 10;
@@ -32,7 +32,7 @@ int iterativeSum(int num) {
 */
 int recursiveSum(int num) {
     if(num < 0) {
-        return -1;
+        throw runtime_error("The number must be a non-negative integer");
     }
 
     if(num < 10) {

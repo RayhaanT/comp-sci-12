@@ -590,10 +590,12 @@ void sumDigits() {
     cin >> choice;
 
     if(choice == '1') {
-        cout << "Sum of the digits of " << input << " = " << iterativeSum(input) << endl;
+        int sum = iterativeSum(input);
+        cout << "Sum of the digits of " << input << " = " << sum << endl;
     }
     else if(choice == '2') {
-        cout << "Sum of the digits of " << input << " = " << recursiveSum(input) << endl;
+        int sum = recursiveSum(input);
+        cout << "Sum of the digits of " << input << " = " << sum << endl;
     }
     else {
         cout << "Invalid choice" << endl;
