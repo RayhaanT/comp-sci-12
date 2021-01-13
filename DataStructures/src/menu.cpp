@@ -581,7 +581,7 @@ void searchForOrder() {
  * Calculate the sum of all the digits in a user-provided integer
 */
 void sumDigits() {
-    cout << "The number to sum: ";
+    cout << "The number to sum (non-negative integer): ";
     int input;
     cin >> input;
 

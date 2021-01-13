@@ -1,5 +1,4 @@
 */.vscode
-data.txt
-dataFormatted.txt
-bigData.txt
-small.txt
+*.txt
+!orderFormat.txt
+!testOrder.txt
