@@ -1,3 +1,11 @@
+/**
+ * The main file
+ * 
+ * @author Rayhaan Tanweer
+ * @since 6-Jan-2020
+ * @version 1.0
+ */
+
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -7,6 +15,13 @@
 
 using namespace std;
 
+/**
+ * Generates a random value from 0 to the maximum, exclusive
+ * 
+ * @param max - the maximum value of the random range
+ * @param decimals - the number of decimal places to calculate
+ * @return the random floating point value
+*/
 float random(int max, int decimals = 0) {
     if(decimals) {
         return (float)(rand() % (int)(max * pow(10, decimals))) / pow(10, decimals);
@@ -14,6 +29,12 @@ float random(int max, int decimals = 0) {
     return rand() % max;
 }
 
+/**
+ * The main function. This is the first method that gets called
+ * when the executable is run
+ * 
+ * @return a number representing the exit status
+*/
 int main() {
 
     string fileName;
